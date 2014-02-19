@@ -1,0 +1,54 @@
+Genotype Identification with the Aid of Nile Blue A with a Virgin Population
+========================================================
+
+11/30/2013 Tyler Shimko
+-----------------------
+
+This experiment dealt with attempting to identify the genotype of the hermaphrodite which gave rise to a population of animals using Nile Blue A to aid in the identification of the sperm activation phenotype. Protocol was as follows:
+
+1. him-5 males crossed with him-5; me86 hermaphrodites
+2. Cross progeny are heterozygous for the me86 allele, pick 15 hermaphrodites to individual plates and allow to grow up
+3. From the 15 original cross progeny, pick 10-15 males from the population at L4 stage
+4. Wait one day after picking the virigin males to new plates, then stain the worms with 120 µL of th 1:8 diluted Nile Blue A solution
+5. Let the plates sit and stain overnight
+6. Observe the animals and score
+
+Scoring
+----------
+
+The table below shows the raw scoring data. 
+
+```{r set-options, echo = FALSE, warning = FALSE}
+options(width = 150)
+data = read.csv("VirginData.csv")
+print(data)
+```
+
+Analysis
+-----------
+
+The table below shows the frequency with which plates were identified correctly or incorrectly. The rows indicate the genotype guess and the columns indicate the actual genotype.
+
+```{r echo = FALSE, warning = FALSE}
+tab = table(data$Genotype.Guess, data$Actual.Genotype)
+print(tab)
+cross = as.character(round(tab[1,1]/sum(tab[1,])*100, 2))
+kh5 = as.character(round(tab[2,2]/sum(tab[2,])*100, 2))
+me86 = as.character(round(tab[3,3]/sum(tab[3,])*100, 2))
+```
+
+The plates arising from cross progeny ("cross" plates), were correctly identified `r cross`% of the time. The Kh5 parental plates were correctly identified `r kh5`% of the time. The me86 parental plates were correctly identified `r me86`% of the time.
+
+The table below shows the frequency (as a percentage) with which each strain was identified, either correctly or incorrectly as the columnar strain.
+
+```{r echo = FALSE, warning = FALSE}
+propTable = prop.table(tab, 1)
+propTable = round(propTable * 100, 2)
+print(propTable)
+```
+
+Discussion
+-----------
+As a result of this experiemnt, it is now clear that Nile Blue A does greatly aid in distinguishing the activated from the nonactivated phenotype. However, the level of error in identifying the genotype of the mixed strains means that this method needs to be refined before it can be implemented. For instance, Kh5 plates were only correctly identified `r kh5`% of the time. Since this is the phenotype that we would like to isolate during scoring in the future, the correct identification of these animals *must* improve. In addition the cross plates were misidentified as Kh5 26.67% of the time. This error rate will not work during the actual screen.
+
+

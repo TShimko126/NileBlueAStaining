@@ -1,0 +1,54 @@
+Genotype Identification with the Aid of Nile Blue A in Liquid Culture
+========================================================
+
+11/30/2013 Tyler Shimko
+-----------------------
+
+This experiment dealt with attempting to identify the genotype of the hermaphrodite which gave rise to a population of animals using Nile Blue A to aid in the identification of the sperm activation phenotype. Protocol was as follows:
+
+1. him-5 males crossed with him-5; me86 hermaphrodites
+2. Cross progeny are heterozygous for the me86 allele, pick 15 hermaphrodites from the cross progeny and each parental strain into a liquid culture in a 96 well plate
+3. Allow the worms to grow for 5 days in liquid culture
+4. On the fifth day, stain the worms by adding 5 µl of a 5% Nile Blue A in M9 solution to each well
+5. Let the plates sit and stain overnight
+6. Six days after picking to the wells, observe and score the animals
+
+Scoring
+----------
+
+The table below shows the raw scoring data. 
+
+```{r set-options, echo = FALSE, warning = FALSE}
+options(width = 150)
+data = read.csv("LiquidData.csv")
+print(data)
+```
+
+Analysis
+-----------
+
+The table below shows the frequency with which plates were identified correctly or incorrectly. The rows indicate the genotype guess and the columns indicate the actual genotype.
+
+```{r echo = FALSE, warning = FALSE}
+tab = table(data$Genotype.Guess, data$Actual.Genotype)
+print(tab)
+cross = as.character(round(tab[2,1]/sum(tab[2,])*100, 2))
+kh5 = as.character(round(tab[3,2]/sum(tab[3,])*100, 2))
+me86 = as.character(round(tab[4,3]/sum(tab[4,])*100, 2))
+```
+
+The plates arising from cross progeny ("cross" plates), were correctly identified `r cross`% of the time. The Kh5 parental plates were correctly identified `r kh5`% of the time. The me86 parental plates were correctly identified `r me86`% of the time.
+
+The table below shows the frequency (as a percentage) with which each strain was identified, either correctly or incorrectly as the columnar strain.
+
+```{r echo = FALSE, warning = FALSE}
+propTable = prop.table(tab, 1)
+propTable = round(propTable * 100, 2)
+print(propTable)
+```
+
+Discussion
+-----------
+As a result of this experiment, we determined that growing the worms in liquid culture *does not* prevent mating, as we had previously suspected. In fact, based on these results compared to those of the original mixed population plates, liquid culture may enhance the worms' ability to mate. However, it did become clear that the rapid time from staining to scoring (about 30 minutes, compared 1.5 to 2 hours for the picked virgin males) did greatly enhance the staining of the gonad, making scoring far easier than in the vigin population scored on the same day. In addition, staining appeared to be more consistent than with worms that had been grown on plates.
+
+
